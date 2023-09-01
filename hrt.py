@@ -12,16 +12,13 @@ def main():
         print("Choose a language for your solution:")
         print("1. Python")
         print("2. JavaScript")
-        print("3. Java")
 
         choice = input("Enter the number of your choice: ")
 
         if choice == "1":
-            args.language = "python"
+            args.language = "py"
         elif choice == "2":
-            args.language = "javascript"
-        elif choice == "3":
-            args.language = "java"
+            args.language = "js"
         else:
             print("Invalid choice. Please select a valid language.")
             return

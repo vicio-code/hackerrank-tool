@@ -26,7 +26,8 @@ def main(data):
 
     file_path = f"hackerrank_solutions/{to_snake_case(domain)}/{to_snake_case(subdomain)}/{to_snake_case(problem)}"
 
-    template = """/*
+    if language == "js":
+        template = """/*
 Problem: {}
 Dificulty: {}
 Time Complexity:
@@ -34,10 +35,21 @@ Space Complexity:
 Score: x/{}
 */
 """.format(
-        url, dificulty, score
-    )
-
-    os.makedirs(file_path)
+            url, dificulty, score
+        )
+    elif language == "py":
+        template = """#
+# Problem: {}
+# Dificulty: {}
+# Time Complexity:
+# Space Complexity:
+# Score: x/{}
+#
+""".format(
+            url, dificulty, score
+        )
+    if os.path.exists(file_path) == False:
+        os.makedirs(file_path)
 
     with open(f"{file_path}/{to_camel_case(problem)}.{language}", "w") as file:
         file.write(template)
