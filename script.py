@@ -4,9 +4,7 @@ import filing
 import requests
 
 
-def main(url):
-    url = "https://www.hackerrank.com/challenges/insert-a-node-at-the-tail-of-a-linked-list/"
-
+def main(url, language):
     payload = {}
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
@@ -14,28 +12,35 @@ def main(url):
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
-    print(response)
+    html_content = response.text
 
-    # # Data Parsing
-    # soup = BeautifulSoup(html_content, "html.parser")
+    # Data Parsing
+    soup = BeautifulSoup(html_content, "html.parser")
 
-    # difficulty_score_elements = soup.find_all("p", class_="pull-right")
-    # categories_elements = soup.find_all("span", class_="breadcrumb-item-text")
+    categories_elements = soup.find_all("span", class_="breadcrumb-item-text")
+    score_element = soup.find("p", class_="sidebar-detail pull-right")
+    dificulty_elements = soup.find_all("div", class_="difficulty-block")
+    dificulty_div = dificulty_elements[1].find_all("p")[1]
 
-    # data = []
-    # data.append(url)
+    data = {
+        "url": url,
+        "language": language,
+        "domain": categories_elements[1].get_text(),
+        "subdomain": categories_elements[2].get_text(),
+        "problem": categories_elements[3].get_text(),
+        "score": score_element.get_text(),
+        "dificulty": dificulty_div.get_text(),
+    }
 
     # for element in difficulty_score_elements:
-    #     data.append(element.get_text())
-    # for element in categories_elements:
-    #     data.append(element.get_text())
-
-    # filing.main(data)
+    #     print(element.get_text())
+    filing.main(data)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print("Usage: python request_script.py <link>")
     else:
         link = sys.argv[1]
-        main(link)
+        language = sys.argv[2]
+        main(link, language)

@@ -14,13 +14,15 @@ def to_snake_case(input_string):
 
 
 def main(data):
-    url = data[0]
-    domain = data[4]
-    subdomain = data[5]
-    problem = data[6]
-    score = data[2]
-    dificulty = data[1]
-    language = "js"
+    url = data["url"]
+    language = data["language"]
+    domain = data["domain"]
+    subdomain = data["subdomain"]
+    problem = data["problem"]
+    dificulty = data["dificulty"]
+    score = data["score"]
+
+    print(problem)
 
     file_path = f"hackerrank_solutions/{to_snake_case(domain)}/{to_snake_case(subdomain)}/{to_snake_case(problem)}"
 
