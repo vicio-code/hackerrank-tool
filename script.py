@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import sys
-import filing
+import hackerrank_solution_generator
 import requests
 
 
@@ -34,7 +34,7 @@ def main(url, language):
 
     # for element in difficulty_score_elements:
     #     print(element.get_text())
-    filing.main(data)
+    hackerrank_solution_generator.main(data)
 
 
 if __name__ == "__main__":

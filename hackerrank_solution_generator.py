@@ -13,6 +13,25 @@ def to_snake_case(input_string):
     return snake_case_string
 
 
+js_comment_template = """/*
+Problem: {}
+Dificulty: {}
+Time Complexity:
+Space Complexity:
+Score: x/{}
+*/
+"""
+
+py_comment_template = """#
+# Problem: {}
+# Dificulty: {}
+# Time Complexity:
+# Space Complexity:
+# Score: x/{}
+#
+"""
+
+
 def main(data):
     url = data["url"]
     language = data["language"]
@@ -22,32 +41,13 @@ def main(data):
     dificulty = data["dificulty"]
     score = data["score"]
 
-    print(problem)
-
     file_path = f"hackerrank_solutions/{to_snake_case(domain)}/{to_snake_case(subdomain)}/{to_snake_case(problem)}"
 
     if language == "js":
-        template = """/*
-Problem: {}
-Dificulty: {}
-Time Complexity:
-Space Complexity:
-Score: x/{}
-*/
-""".format(
-            url, dificulty, score
-        )
+        template = js_comment_template.format(url, dificulty, score)
     elif language == "py":
-        template = """#
-# Problem: {}
-# Dificulty: {}
-# Time Complexity:
-# Space Complexity:
-# Score: x/{}
-#
-""".format(
-            url, dificulty, score
-        )
+        template = py_comment_template.format(url, dificulty, score)
+
     if os.path.exists(file_path) == False:
         os.makedirs(file_path)
 
